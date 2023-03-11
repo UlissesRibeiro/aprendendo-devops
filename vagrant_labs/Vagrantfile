@@ -1,0 +1,20 @@
+Vagrant.configure("2") do |config|
+    #aqui temos um forwarded de porta
+      config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+    
+      config.vm.provision "shell", path: "provision.sh"
+      config.vm.define "nome_da_maquina"
+      config.vm.hostname = "hostnamemaquina"
+      config.vm.box = "ubuntu/focal64" #distribuição linux e a versão
+      config.vm.network "private_network", ip: "192.168.56.2" #aqui seria para usar uma rede privada
+    #no bloco abaixo, definimos o hardware
+      config.disksize.size = '80GB'
+      config.vm.provider "virtualbox" do |vb|
+        vb.memory = "2048"
+        vb.cpus = 2
+        vb.customize ["modifyvm", :id, "--ioapic", "on"]
+      end
+      config.vm.provision "shell", path: "provision.sh"
+    
+    end
+    
