@@ -1,9 +1,16 @@
 <h1 align=center>Curso DevOps</h1>
 Conteúdo do curso de "DevOps", sendo mais voltado para a pratica, com uso de ferramentas, sendo elas :<br>
 
-<li>Vagrant</li>
-<li>Git</li>
-<li>Ansible</li>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+          
+          
+          
+<li><a href="https://github.com/UlissesRibeiro/curso_devops/tree/master/vagrant_labs"><i class="devicon-vagrant-plain colored"></i> Vagrant </a></li>
+<li><i class="devicon-git-plain colored"></i> Git</li>
+<li><a href="https://github.com/UlissesRibeiro/curso_devops/tree/master/ansible_labs"><i class="devicon-ansible-plain"></i> Ansible</a></li>
 <li>Docker</li>
 <li>Jenkins</li>
 <li>Kubernets</li>
