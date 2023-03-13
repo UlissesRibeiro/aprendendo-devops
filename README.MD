@@ -9,7 +9,7 @@ Conteúdo do curso de "DevOps", sendo mais voltado para a pratica, com uso de fe
           
           
 <li><a href="https://github.com/UlissesRibeiro/curso_devops/tree/master/vagrant_labs"><i class="devicon-vagrant-plain colored"></i> Vagrant </a></li>
-<li><i class="devicon-git-plain colored"></i> Git</li>
+<li><a href=""><i class="devicon-git-plain colored"></i> Git</a></li>
 <li><a href="https://github.com/UlissesRibeiro/curso_devops/tree/master/ansible_labs"><i class="devicon-ansible-plain"></i> Ansible</a></li>
 <li>Docker</li>
 <li>Jenkins</li>
