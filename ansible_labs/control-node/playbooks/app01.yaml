@@ -1,0 +1,11 @@
+---
+- name: Instalação do Apache
+  hosts: dbservers
+  become: yes
+
+  tasks:
+  - name: Instala o Apache
+    apt:
+      name: apache2
+      state: present
+  
