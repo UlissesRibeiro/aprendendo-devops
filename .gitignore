@@ -1,4 +1,4 @@
 *.deb
 devenv
-/.vagrant
+/vagrant_labs/.vagrant
 /webserver_ssl
