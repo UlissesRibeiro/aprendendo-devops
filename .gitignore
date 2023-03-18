@@ -1,1 +1,4 @@
 *.deb
+devenv
+/.vagrant
+/webserver_ssl

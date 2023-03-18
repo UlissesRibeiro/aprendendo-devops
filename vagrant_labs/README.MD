@@ -2,7 +2,7 @@
 
 <p>O Vagrant é uma ferramenta que tem como intuito subir maquinas virtuais, no meu ponto de vista mas para fazer maquinas de testes.</p>
 
-<p>Mas de forma resumida, faça a instalação do Vagrant, de acordo com o seu sistema operacional, uma vez instalado, verifique se a instalação deu certo, rodando o comando : <b>vagrant --version</b>, tendo o retorno da versão, confirmando que foi instalado.</p>
+<p>Faça o download clicando <a href="https://www.vagrantup.com/Downloads">aqui</a>, e faça a instalação do Vagrant, de acordo com o seu sistema operacional, uma vez instalado, verifique se a instalação deu certo, rodando o comando : <b>vagrant --version</b>, tendo o retorno da versão, confirmando que foi instalado.</p>
 
 <p>Cada maquina virtual, tem que ser criada dentro de um diretório, já que cada VM tem seu Vagrantfile, por uma questão de boas práticas. Ao rodar o comando <b>vagrant init</b> dentro do diretório da VM, será gerado o arquivo <b>Vagrantfile</b>, arquivo esse responsável, por passar os parâmetros de criação da maquina virtual.</p>
 
@@ -45,7 +45,7 @@ Obs.2: Para definir tamanho de disco, baixe o plugin vagrant-disksize
 
     end
           
-<p>Segue o exemplo do <b>provision.sh</b> : <br>
+<p>Para fazer a instalação de aplicações durante a subida da maquina, podemos optar por usar um script internamente ou externamente, no meu caso optei por fazer apontando o script externo, Segue o exemplo do <b>provision.sh</b> : <br>
 
     #!/bin/bash
     echo "Instalando Apache e configurando setup!"

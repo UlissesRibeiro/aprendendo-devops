@@ -7,11 +7,11 @@
 
 <li><b>git config --global user.name “nome_de_usuario”</b> : para adicionar o usuário.</li>
 <li><b>git config --global user.email “email_do_usuario”</b> : para adicionar o e-mail.</li>
-<li><b>git config --global core.editor "editor de textos"</b> : para informar o editor de textos que vamos usar.</li>
+<li><b>git config --global core.editor "editor de textos"</b> : para informar o editor de textos que vamos usar.</li> <br>
 
-<p>Para iniciar um projeto, dentro da pasta/diretório, use <b> git init </b>, esse comando vai inicialiar o seu repositório local para que possa ser visivel como um repositório no git.</p>
+<p>Para iniciar um projeto, dentro da pasta/diretório, use <b> git init </b>, esse comando vai inicializar o seu repositório local para que possa ser visível como um repositório no git.</p>
 
-<p>Dentro do repositorio, agora boa parte do seu trabalho vai ser via terminal/cli, no caso do Linux e Mac, temos o terminal e no caso do Windows é necessário instalar o GitBash para ter uma experiência melhor, e instalar o Terminal, disponivel na loja da Microsoft, bastante util para usuários Windows.</p>
+<p>Dentro do repositório, agora boa parte do seu trabalho vai ser via terminal/cli, no caso do Linux e Mac, temos o terminal e no caso do Windows é necessário instalar o GitBash para ter uma experiência melhor, e instalar o Terminal, disponível na loja da Microsoft, bastante util para usuários Windows.</p>
 
 <h3 align=center><b>Estados do git</b></h3>
 <p>Dentro do repositório, temos os estados dos arquivos, sendo eles : </p> <br>
