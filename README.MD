@@ -20,7 +20,7 @@ Git</a></li>
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original-wordmark.svg" / width=20>
 Ansible</a></li>
 
-<li>Docker</li>
+<li><a href="https://github.com/UlissesRibeiro/curso_devops/tree/master/docker"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" / width=20>  Docker</a></li>
 <li>Jenkins</li>
 <li>Kubernets</li>
 <li>Prometheus</li>
