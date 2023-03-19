@@ -112,3 +112,58 @@ Salve seu Dockerfile, e execute o comando a seguir:<br>
   <br>
 <p>Dessa forma criamos nossa imagem a partir de um Dockerfile, sendo essa imagem do Apache2, quando usado o comando docker build -t my-apache2 , a -t é para darmos nome a nossa imagem, e no docker run, passamos para que seja executado em segundo plano de modo interativo, setamos um nome para aplicação, com um redirecionamento de portas, e o nome da imagem, podemos listar o container usando <b>docker ps</b>, e ao acessarmos o localhost na porta 8080, varemos nossa aplicação web rodando.</p>
 
+<h2>Linkando sua pasta host ao container</h2>
+<p>Vinculado sua pasta host ao container, facilita seu processo de produção, considerando aqui que você seja um desenvolvedor e queira testar seu codigo no container, então para isso é feito a partir desse codigo :
+
+<b>docker run -it --mount type=bind,src="$(pwd)",target=/src sua_imagem sh</b>
+
+sendo <b>src</b> para usar o seu diretório atual como source, e apontar no <b>target</b> o destino da aplicação, então segue o exemplo :
+<b>docker run -dit --name apachoso -p 8080:80 --mount type=bind,src="$(pwd)",target=/usr/local/apache2/htdocs/ my-apach2</b>
+<br>
+<li>docker run, para executar o container.</li>
+<li>-dit, para indiciar que vai ser iniciado em segundo plano de forma interativa.</li>
+<li>--name apachoso, definimos um nome para o container "apachoso".</li>
+<li>-p 8080:80, um forwarded de portas, da 80 do container, para a 8080 do host.</li>
+<li>--mount type=bind, essa opção informa ao Docker para criar um ponto de montagem de ligação.</li>
+<li>src, o seu diretório de trabalho.</li>
+<li>target, o diretório do container</li>
+<li>my-apach2, o nome da nossa imagem, no momento que rodamos o docker buld.</li>
+<br>
+</p>
+<p>Agora ao atualizar seu código html no seu host, o container vai atualizar por esta vinculado os diretórios.</p>
+
+<h2>Comandos Docker</h2>
+<p>Segue aqui alguns comandos :
+<ul>
+
+<h3 align=center>Gerenciamento de imagens</h3>
+<li>docker images: lista todas as imagens disponíveis no sistema.</li>
+docker pull <image-name>: faz o download de uma imagem do registro do Docker.</li>
+<li>docker build -t <image-name> <path-to-dockerfile>: constrói uma imagem com base em um Dockerfile.</li>
+<li>docker tag <source-image>:<tag> <target-image>:<tag>: cria uma nova tag para uma imagem existente.</li>
+<li>docker push <image-name>: envia uma imagem para o registro do Docker.</li>
+
+<h3 align=center>Gerenciamento de contêineres</h3>
+<li>docker ps: lista todos os contêineres em execução.</li>
+<li>docker ps -a: lista todos os contêineres, incluindo os que estão parados.</li>
+<li>docker start <container-name>: inicia um contêiner parado.</li>
+<li>docker stop <container-name>: interrompe um contêiner em execução.</li>
+<li>docker restart <container-name>: reinicia um contêiner em execução.</li>
+<li>docker rm <container-name>: remove um contêiner parado.</li>
+<li>docker container prune: remove todos os contêineres parados.</li>
+
+<h3 align=center>Gerenciamento de redes</h3>
+<li>docker network ls: lista todas as redes disponíveis no sistema.</li>
+<li>docker network create <network-name>: cria uma nova rede.</li>
+<li>docker network connect <network-name> <container-name>: conecta um contêiner a uma rede.</li>
+<li>docker network disconnect <network-name> <container-name>: desconecta um contêiner de uma rede.</li>
+
+<h3 align=center>Outros comandos úteis</h3>
+<li>docker exec -it <container-name> <command>: executa um comando dentro de um contêiner em execução.</li>
+<li>docker logs <container-name>: exibe os logs de um contêiner em execução.</li>
+<li>docker inspect <container-name>: exibe informações detalhadas sobre um contêiner.</li>
+<li>docker volume ls: lista todos os volumes disponíveis no sistema.</li>
+<li>docker volume create <volume-name>: cria um novo volume.</li>
+<li>docker volume rm <volume-name>: remove um volume.</li>
+</ul>
+Esses são apenas alguns exemplos de comandos úteis do Docker. Consulte a documentação oficial do Docker para obter informações detalhadas sobre todos os comandos disponíveis.
