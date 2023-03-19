@@ -3,3 +3,4 @@ devenv
 /vagrant_labs/.vagrant
 /webserver_ssl
 /.vscode
+/docker/rascunho
