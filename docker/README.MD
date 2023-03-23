@@ -109,7 +109,7 @@ O que vamos criar aqui é um webserver Apache, capaz de testar certificados do t
 <li>conf.cert</li>
 Dentro dele, você vai colocar os seus certificados do SSL, normalmente são .crt .key e um bundle.crt . Esse diretório sera vinculado a um diretório no nosso container, que será o <b>/etc/apache2/ssl/</b>
 <br>Nossa conf.cert terá essa estrutura :
-<img src="/conf.cert.png">
+<img src="conf.cert.png">
 </p>
 <p>Tendo nossa imagem ubuntu/apache2 baixada, vamos criar o nosso container que :<br>
 <ul>
