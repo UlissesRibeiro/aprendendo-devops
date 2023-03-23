@@ -58,7 +58,7 @@ vou deixar aqui o script para facilitar o processo, mas é o mesmo que está na 
 
     apt update
 
-    apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+    apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose -y
 
     systemctl start docker
     systemctl enable docker
@@ -98,39 +98,82 @@ Criando o grupo e adicionando seu usuário:
 <p>Ao executar um container, ele usa um sistema de arquivos isolado, esse sistema de arquivos personalizado, é fornecido por uma imagem do container, como a imagem contem o sistema de arquivos do container, ela deve conter tudo o que é necessário para executar um aplicativo, todas as dependências, configurações,scripts, binários,etc. A imagem contém outras configurações, como variáveis de ambiente, um comando padrão para executar e outros metadados.</p>
 
 <h2>Containerizar uma aplicação</h2>
-<p>Aqui vou mostrar como cria um container de uma aplicação web com o Apache, através de um arquivo Dockerfile. Primeiramente crie o arquivo Dockerfile, e no nosso caso, vamos pegar o codigo direto do hub docker <a href="https://hub.docker.com/_/httpd">aqui</a>, segue o codigo :
+<p>Aqui vou mostrar como cria um container de uma aplicação web com o Apache, pegando nossa imagem através do Docker hub. Certifique-se de estar conectado a internet, e rode o comando <b>docker pull ubuntu/apache2</b>, vamos utilizar como base o Ubuntu, com o Apache2. Você pode verificar se a imagem foi baixada, utilizando <b>docker images</b>, tendo o retorno :<br>
+<i><b>ubuntu/apache2               latest    edd92437b7eb   22 hours ago    179MB</b></i>
 
-  FROM httpd:2.4  
-  COPY ./public-html/ /usr/local/apache2/htdocs/
-
-Nesse arquivo Dockerfile acima, ele vai criar a imagem a partir do httpd, e copiar os arquivos de um diretório local para dentro do container.
-Salve seu Dockerfile, e execute o comando a seguir:<br>
-
-  <b>docker build -t my-apache2 .<br>
-  docker run -dit --name my-running-app -p 8080:80 my-apache2  </b>
-</p>
+O que vamos criar aqui é um webserver Apache, capaz de testar certificados do tipo SSL.</p>
   <br>
-<p>Dessa forma criamos nossa imagem a partir de um Dockerfile, sendo essa imagem do Apache2, quando usado o comando docker build -t my-apache2 , a -t é para darmos nome a nossa imagem, e no docker run, passamos para que seja executado em segundo plano de modo interativo, setamos um nome para aplicação, com um redirecionamento de portas, e o nome da imagem, podemos listar o container usando <b>docker ps</b>, e ao acessarmos o localhost na porta 8080, varemos nossa aplicação web rodando.</p>
 
-<h2>Linkando sua pasta host ao container</h2>
-<p>Vinculado sua pasta host ao container, facilita seu processo de produção, considerando aqui que você seja um desenvolvedor e queira testar seu codigo no container, então para isso é feito a partir desse codigo :
-
-<b>docker run -it --mount type=bind,src="$(pwd)",target=/src sua_imagem sh</b>
-
-sendo <b>src</b> para usar o seu diretório atual como source, e apontar no <b>target</b> o destino da aplicação, então segue o exemplo :
-<b>docker run -dit --name apachoso -p 8080:80 --mount type=bind,src="$(pwd)",target=/usr/local/apache2/htdocs/ my-apach2</b>
-<br>
-<li>docker run, para executar o container.</li>
-<li>-dit, para indiciar que vai ser iniciado em segundo plano de forma interativa.</li>
-<li>--name apachoso, definimos um nome para o container "apachoso".</li>
-<li>-p 8080:80, um forwarded de portas, da 80 do container, para a 8080 do host.</li>
-<li>--mount type=bind, essa opção informa ao Docker para criar um ponto de montagem de ligação.</li>
-<li>src, o seu diretório de trabalho.</li>
-<li>target, o diretório do container</li>
-<li>my-apach2, o nome da nossa imagem, no momento que rodamos o docker buld.</li>
-<br>
+<h2>Montando nosso laboratório</h2>
+<p>Dentro da sua pasta raiz, crie os diretórios :
+<li>conf.cert</li>
+Dentro dele, você vai colocar os seus certificados do SSL, normalmente são .crt .key e um bundle.crt . Esse diretório sera vinculado a um diretório no nosso container, que será o <b>/etc/apache2/ssl/</b>
+<br>Nossa conf.cert terá essa estrutura :
+<img src="conf.cert.png">
 </p>
-<p>Agora ao atualizar seu código html no seu host, o container vai atualizar por esta vinculado os diretórios.</p>
+<p>Tendo nossa imagem ubuntu/apache2 baixada, vamos criar o nosso container que :<br>
+<ul>
+<li>Terá um diretório local do seu host, vinculado ao container.</li>
+<li>Iremos fazer um redirecionamento de portas, da 80 do container para a 8030 do seu host.</li>
+</ul>
+<b>Obs.: Iremos precisar fazer algumas configurações no container em execução, para que tudo funcione corretamente.</b></p>
+Rode o comando a seguir para criar o container :<br>
+
+<p>docker run -dit --name web_ssl_lab -p 8030:80 -p 8443:443 --mount type=bind,src="$(pwd)",target=/etc/apache2/ssl ubuntu/apache2</p>
+
+<br>
+<ul>Explicando cada parte do comando:
+<li><b>docker run</b>, para executar o container.</li>
+<li><b>-dit</b>, para indiciar que vai ser iniciado em segundo plano de forma interativa.</li>
+<li><b>--name web_ssl_lab</b>, definimos um nome para o container "web_ssl_lab".</li>
+<li><b>-p 8030:80</b>, um forwarded de portas, da 80 do container, para a 8080 do host.</li>
+<li><b>-p 8443:443</b>, para poder acessar no porta 443 sem erros.</li>
+<li><b>--mount type=bind</b>, essa opção informa ao Docker para criar um ponto de montagem de ligação.</li>
+<li><b>src</b>, o seu diretório de trabalho.Você pode tanto usar a variável como no exemplo, ou passar o path src=/seu/path .</li>
+<li><b>target</b>, o diretório do container</li>
+<li><b>ubuntu/apache2</b>, o nome da nossa imagem.</li>
+</ul>
+<br>
+
+<p>Se tudo tiver corrido bem, ao rodar o comando <b>docker ps</b>, você terá o retorno do container em execução.</p>
+
+<h2>Acessando o container</h2>
+<p>A partir de agora iremos acessar o container em execução e fazer nossas configurações, será necessário instalar :
+<ul>
+<li>openssl</li>
+<li>curl</li>
+<li>net-tools</li>
+<li>apt-get --reinstall install ssl-cert</li>
+</ul>
+Essas aplicações são para garantir de não termos erros daqui pra frente. Logue como root, usando <b>su root</b>, e verifique se a montagem de diretório correu bem, <b>ls -lha /etc/apache2/ssl/</b>, se deu certo, você vai conseguir ver os arquivos da sua conf.cert . </p>
+
+<h3>Configurando vhosts</h3>
+<p>Iremos trabalhar com vhosts e consequentemente com SSL, rode o comando <b>a2enmode ssl</b>, vai pedir para dar reload, rode então <b>service apache2 reload</b>,rode novamente o a2enmod ssl, agora vamos configurar o vhost, basta copiar o arquivo abaixo e adicionar ao <b>/etc/apache2/sites-available/default-ssl.conf</b></p>
+
+<VirtualHost *:443>
+    ServerName seu.dominio.com.br
+    DocumentRoot /var/www/html
+
+    # SSL Configuration
+    SSLEngine On
+    SSLCertificateFile /etc/apache2/ssl/conf.cert/certificado.crt
+    SSLCertificateKeyFile /etc/apache2/ssl/conf.cert/certificado.key
+    SSLCertificateChainFile /etc/apache2/ssl/conf.cert/cadeia_de_certificado.crt
+
+    # Other Apache Configuration
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    <Directory /var/www/html>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+<p>Em ServerName informe o seu dominio que quer acessar, digamos que seu certificado seja *.uol.com.br, então seu dominio pode ser teste.uol.com.br . As 
+configurações de path do ssl, de acordo com o nosso mapeamento. Salve o arquivo,e rode os comandos <b>a2ensite default-ssl.conf</b>, vai pedir para restart o apache, rode o reload, service apache2 reload(é melhor)</p>
+<p>Se tudo tiver corrido perfeitamente sem erros, na sua maquina host você vai precisar adicionar esse host ao seu /etc/hosts, caso use Linux fica em <b>/etc/hosts</b> e caso use Windows <b>/windows/system32/drivers/etc/hosts</b>, seria dessa forma para adicionar : 172.17.0.2    teste.uol.com.br(lembrando que esse é um exemplo, adicione o host que você definiu). Agora acesse no seu navegador https://teste.uol.com.br:8030 , se der certo, a pagina do apache padrão vai ser carregada e você poderá ver o simbolo do cadeado referente ao https, clicando nele poderá ver o certificado e demais informações.</p>
+<b>Obs.: recomendo fazer o teste usando o Firefox!</b><br>
 
 <h2>Comandos Docker</h2>
 <p>Segue aqui alguns comandos :

@@ -1,6 +1,13 @@
 *.deb
 devenv
-/vagrant_labs/.vagrant
+/vagrant_labs/.vagrant/
 /webserver_ssl
-/.vscode
+/.vscode/
 /docker/rascunho
+/docker/vhosts/
+/docker/public-html/vhosts/
+/docker/vendor
+/docker/composer.*
+/docker/*.php
+/docker/*.png
+/*.php
