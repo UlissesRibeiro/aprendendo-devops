@@ -9,5 +9,4 @@ devenv
 /docker/vendor
 /docker/composer.*
 /docker/*.php
-/docker/*.png
 /*.php
