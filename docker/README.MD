@@ -150,26 +150,26 @@ Essas aplicações são para garantir de não termos erros daqui pra frente. Log
 <h3>Configurando vhosts</h3>
 <p>Iremos trabalhar com vhosts e consequentemente com SSL, rode o comando <b>a2enmode ssl</b>, vai pedir para dar reload, rode então <b>service apache2 reload</b>,rode novamente o a2enmod ssl, agora vamos configurar o vhost, basta copiar o arquivo abaixo e adicionar ao <b>/etc/apache2/sites-available/default-ssl.conf</b></p>
 
-<VirtualHost *:443>
-    ServerName seu.dominio.com.br
-    DocumentRoot /var/www/html
+    <VirtualHost *:443>
+      ServerName seu.dominio.com.br
+      DocumentRoot /var/www/html
 
-    # SSL Configuration
-    SSLEngine On
-    SSLCertificateFile /etc/apache2/ssl/conf.cert/certificado.crt
-    SSLCertificateKeyFile /etc/apache2/ssl/conf.cert/certificado.key
-    SSLCertificateChainFile /etc/apache2/ssl/conf.cert/cadeia_de_certificado.crt
+      # SSL Configuration
+      SSLEngine On
+      SSLCertificateFile /etc/apache2/ssl/conf.cert/certificado.crt
+      SSLCertificateKeyFile /etc/apache2/ssl/conf.cert/certificado.key
+      SSLCertificateChainFile /etc/apache2/ssl/conf.cert/cadeia_de_certificado.crt
 
-    # Other Apache Configuration
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
+      # Other Apache Configuration
+      ErrorLog ${APACHE_LOG_DIR}/error.log
+      CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-    <Directory /var/www/html>
-        Options Indexes FollowSymLinks
-        AllowOverride All
-        Require all granted
-    </Directory>
-</VirtualHost>
+      <Directory /var/www/html>
+          Options Indexes FollowSymLinks
+          AllowOverride All
+          Require all granted
+      </Directory>
+    </VirtualHost>
 <p>Em ServerName informe o seu dominio que quer acessar, digamos que seu certificado seja *.uol.com.br, então seu dominio pode ser teste.uol.com.br . As 
 configurações de path do ssl, de acordo com o nosso mapeamento. Salve o arquivo,e rode os comandos <b>a2ensite default-ssl.conf</b>, vai pedir para restart o apache, rode o reload, service apache2 reload(é melhor)</p>
 <p>Se tudo tiver corrido perfeitamente sem erros, na sua maquina host você vai precisar adicionar esse host ao seu /etc/hosts, caso use Linux fica em <b>/etc/hosts</b> e caso use Windows <b>/windows/system32/drivers/etc/hosts</b>, seria dessa forma para adicionar : 172.17.0.2    teste.uol.com.br(lembrando que esse é um exemplo, adicione o host que você definiu). Agora acesse no seu navegador https://teste.uol.com.br:8030 , se der certo, a pagina do apache padrão vai ser carregada e você poderá ver o simbolo do cadeado referente ao https, clicando nele poderá ver o certificado e demais informações.</p>
