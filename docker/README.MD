@@ -174,7 +174,21 @@ Essas aplicações são para garantir de não termos erros daqui pra frente. Log
 configurações de path do ssl, de acordo com o nosso mapeamento. Salve o arquivo,e rode os comandos <b>a2ensite default-ssl.conf</b>, vai pedir para restart o apache, rode o reload, service apache2 reload(é melhor)</p>
 <p>Se tudo tiver corrido perfeitamente sem erros, na sua maquina host você vai precisar adicionar esse host ao seu /etc/hosts, caso use Linux fica em <b>/etc/hosts</b> e caso use Windows <b>/windows/system32/drivers/etc/hosts</b>, seria dessa forma para adicionar : 172.17.0.2    teste.uol.com.br(lembrando que esse é um exemplo, adicione o host que você definiu). Agora acesse no seu navegador https://teste.uol.com.br:8030 , se der certo, a pagina do apache padrão vai ser carregada e você poderá ver o simbolo do cadeado referente ao https, clicando nele poderá ver o certificado e demais informações.</p>
 <b>Obs.: recomendo fazer o teste usando o Firefox!</b><br>
+<br>
 
+<h2>Salvando image e subindo para o registry</h2>
+<p>Agora que você tem seu container em execução, é importante que você salve seu container, como uma nova image, primeiro pare o seu container <b>docker stop seu_container</b>, em seguida rode os comandos :
+<ul>
+<li>Pare o container em questão: docker stop nome_do_container</li>
+<li>Crie uma nova imagem a partir do container parado: docker commit nome_do_container seunome_usuario_hubdocker/nome_da_nova_imagem</li>
+Substitua <b>nome_do_container</b> pelo nome ou ID do container que você deseja salvar como imagem.
+Substitua <b>seunome_usuario_hubdocker/nome_da_nova_imagem</b> pelo seu nome de usuario do hub docker/nome da imagem que você deseja dar à nova imagem.
+
+<li>Verifique se a nova imagem foi criada com sucesso: docker images</li>
+Se desejar, você pode remover o container original: docker rm nome_do_container .
+Com isso, você terá criado uma nova imagem a partir do container que deseja salvar. Você pode usar essa imagem para criar novos containers com o mesmo estado que o container original.</li>
+
+</ul>
 <h2>Comandos Docker</h2>
 <p>Segue aqui alguns comandos :
 <ul>
