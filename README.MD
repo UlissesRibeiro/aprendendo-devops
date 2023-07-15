@@ -25,4 +25,4 @@ Ansible</a></li>
 <li><a href="https://github.com/UlissesRibeiro/curso_devops/tree/master/docker"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" / width=20>  Docker</a></li>
 
 
-Dentro de cada repositório tem um README, explicando como funciona basicamente cada ferramenta, assim como você também estou aprendendo a utilizar.
+Dentro de cada repositório tem um README, explicando como funciona basicamente cada ferramenta, assim como você, também estou aprendendo a utilizar.
