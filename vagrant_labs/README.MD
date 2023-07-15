@@ -55,19 +55,20 @@ O Vagrantfile é escrito usando a sintaxe do Ruby, segue abaixo um exemplo :
 
     end
 
-    - config.vm.define : define o nome da maquina virtual
-    - config.vm.hostname : define um hostname para a maquina
-    - config.vm.box : define a imagem que vai usar [ubuntu,centos,etc]
-    - config.vm.network : para definir parâmetros de rede, como
-        - forwarder de portas, criar uma rede privada,etc
-    -   config.disksize.size : você pode definir o tamanho de disco da VM
-    - config.vm.provider : para definir o virtualizador [VirtualBox,VMware,etc]
-    - vb.memory : define o tamanho de memoria ram
-    - vb.cpus : define a quantidade de cores
-    - config.vm.provision : utilizei um script externo em bash, para fazer as instalações,updates,etc
+
+- config.vm.define : define o nome da maquina virtual
+- config.vm.hostname : define um hostname para a maquina
+- config.vm.box : define a imagem que vai usar [ubuntu,centos,etc]
+- config.vm.network : para definir parâmetros de rede, como
+    - forwarder de portas, criar uma rede privada,etc
+-   config.disksize.size : você pode definir o tamanho de disco da VM
+- config.vm.provider : para definir o virtualizador [VirtualBox,VMware,etc]
+- vb.memory : define o tamanho de memoria ram
+- vb.cpus : define a quantidade de cores
+- config.vm.provision : utilizei um script externo em bash, para fazer as instalações,updates,etc
 
 <b>Obs.4: <a href="https://developer.hashicorp.com/vagrant/docs/provisioning/shell">aqui</a> você tem mais detalhes como usar o provision.</b>
-
+<b>Obs.5: Você pode obter as images que vai usar <a href="https://app.vagrantup.com/boxes/search">aqui</a></b>
 Segue o exemplo do <b>provision.sh</b> :
 
     #!/bin/bash
