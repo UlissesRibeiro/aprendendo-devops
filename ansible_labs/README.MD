@@ -1,12 +1,37 @@
-<h1 align=center>Ansible</h1>
+## indice
+- [O que é o Ansible?](#o-que-é-o-ansible)
+- [Como instalar](#como-instalar)
+- [Arquitetura](#arquitetura)
+- [Inventario](#inventario)
+- [Testando a conexão](#testando-a-conexão)
+- [Contribuindo](#contribuindo)
+
+## O que é o Ansible?
 
 <p>O Ansible, é uma ferramenta que nos possibilita ter o que chamamos de "infraestrutura como código", sendo utilizado para criação automatizada de Maquinas Virtuais, provisionamento de ambientes, gerenciamento de configurações, entre outras coisas!</p>
 
 <p>Minha experiência com o Ansible, foi para fazer a subida de maquinas virtuais no ProxMox(um hipervisor, semelhante ao ESXI,VMware VCenter), com base em templates, mas também para fazer instalação de aplicações, como subida de um ambiente, verificar se um grupo de maquinas esta online, etc.</P>
 
-<p>Faça a instalação do Ansible, e vamos entender como ele funciona!</p>
+## Como instalar
+<p>Para instalar o Ansible, basta seguir o passo a passo baseado na documentação oficial, meu sistema de uso é o Ubuntu, segue então os comandos :
 
-<p>O Ansible, trabalha sem a necessidade de ter um client instalado na maquina host, usando apenas a porta SSH da maquina, aconselhado que seu ambiente tem authorized_keys, para um melhor aproveitamento da ferramenta. Sendo ele então <b>control-node</b>, que vai rodar os comandos para as maquinas hosts, chamadas de <b>Managed Node</b>, e o ideal é ter o arquivo de inventários dos hosts, que fica localizado em /etc/ansible/hosts , dentro dele passamos como queremos nos comunicar com os managed nodes, podendo ser por grupos ou individual, segue um exemplo :</p><br>
+    $ sudo apt update
+    $ sudo apt install software-properties-common
+    $ sudo add-apt-repository --yes --update ppa:ansible/ansible
+    $ sudo apt install ansible
+</p>
+
+## Arquitetura
+
+A arquitetura digamos assim do Ansible é composta por :
+ - Control Node : a maquina que terá o Ansible instalado para gerenciar os hosts.
+
+ - Managed Node : são os hosts gerenciados pelo Control Node.
+
+ - Inventory : seu inventário/hosts
+
+
+O Ansible, trabalha sem a necessidade de ter um client instalado na maquina host, usando apenas a porta SSH da maquina, aconselhado que seu ambiente tenha authorized_keys, para um melhor aproveitamento da ferramenta. Sendo ele então <b>control-node</b>, que vai rodar os comandos para as maquinas hosts, chamadas de <b>Managed Node</b>, e o ideal é ter o arquivo de inventários dos hosts, que fica localizado em /etc/ansible/hosts , dentro dele passamos como queremos nos comunicar com os managed nodes, podendo ser por grupos ou individual, segue um exemplo : <br>
 
     [myvirtualmachines]
     192.0.2.50
@@ -15,9 +40,28 @@
 
 <p>Dessa forma dentro de [ ] temos um grupo de maquinas, ao rodar algum comando no Ansible apontando para esse grupo, todos os hosts devem responder.</p>
 
-<p>Para verificar se deu certo, você pode rodar o comando :</p>
-<b>ansible myvirtualachines -m ping</b>
-<p>Tendo como retorno:</p><br>
+## Inventario
+
+O inventario/hosts, é o que vai fazer o Ansible se comunicar de uma forma que ele identifique na rede quem é quem na fila do pão! Podemos adicionar os hosts de forma livre apenas listando os IPs, ou de forma organizada informando os Grupos dentro de [ ]
+
+    [DEMO-HOMO]
+    DEMO001      ansible_host=192.168.0.2
+    HOMO001      ansible_host=192.168.0.3
+
+    [PROD]
+    PROD001     ansible_host=192.168.0.4
+    PROD002     ansible_host=192.168.0.5
+    PROD003     ansible_host=192.168.0.6
+
+## Testando a conexão
+
+Para verificar se deu certo, você pode rodar o comando :
+
+    ansible myvirtualachines -m ping
+    
+<b>Obs.: Só vai funcionar dessa forma do comando se tiver authorizedkeys, , do contrário informe -k para solicitar a senha, por padrão é usado usuário root, caso queira passar outro usuário use : -u nome_do_usuario </b>
+
+Tendo como retorno: 
 
     192.0.2.50 | SUCCESS => {
     "ansible_facts": {
@@ -41,35 +85,137 @@
         "ping": "pong"
         }
 
-<p>Você pode usar o Ansible para fazer instalações de aplicações simples usando o modulo <b>command</b> ou <b>shell</b>, exemplo :</p><br>
 
-#no primeiro exemplo, usando o <b>which</b> para buscar se tem o git instalado, retornando que localizou o git na maquina host
+## Módulos
 
-    root@control-node:~# ansible dbservers -m command -a 'which git'
-    192.168.56.11 | CHANGED | rc=0 >>
-    /usr/bin/git
+Conheço duas formas de usar o Ansible via CLI, usando os módulos :
+ - command
+ - shell
 
-#no segundo exemplo, buscando se tem o vscode instalado, informando que não localizou na maquina host
+O módulo command é usado para executar comandos diretamente no shell do sistema operacional no host remoto. Ele é útil para executar comandos simples e diretos, sem a necessidade de interação ou recursos avançados de shell. O comando é executado exatamente como você o especifica, sem passar por um processo de shell intermediário. 
 
-    root@control-node:~# ansible dbservers -m command -a 'which code'
-    192.168.56.11 | FAILED | rc=1 >>
-    non-zero return code
-
-<p align=center>o comando é <b>ansible SEU_HOST -m command -a 'comando que quer passar'</b></p>
-
-<br>
-
-<p>Outra forma de prover instalação de aplicações e configurações, é usando <b>playbooks</b>, como alguns costumam chamar de <b>receita</b>, segue um exemplo de instalação do apache bem básico :</p>
+    ansible HOSTS -m command -a 'ls -lha'
 
 
-    ---
-    - name: Instalação do Apache
-    hosts: dbservers
-    become: yes
+O módulo shell permite executar comandos em um shell no host remoto, como bash ou sh. Ele oferece recursos avançados do shell, como redirecionamento de entrada/saída, tubulações, substituição de comandos e variáveis de ambiente. 
 
-    tasks:
-    - name: Instala o Apache
-        apt:
-        name: apache2
-        state: present
+    ansible HOSTS -m shell -a 'ls -lha |grep arquivo.txt'
+
+## Playbooks
+
+No Ansible, um playbook é um arquivo YAML que define uma sequência de tarefas a serem executadas em um conjunto de hosts. É a unidade básica de configuração e automação no Ansible. Um playbook descreve o estado desejado do sistema e as ações necessárias para alcançá-lo.
+
+Segue alguns exemplos de playbooks:
+
+
+
+- Playbook básico para instalar pacotes em servidores:
+
+        ---
+        - name: Instalar pacotes
+          hosts: servidores
+          tasks:
+            - name: Atualizar cache de pacotes
+              apt:
+                update_cache: yes
+              become: true
+
+            - name: Instalar pacotes
+              apt:
+                name:
+                  - pacote1
+                  - pacote2
+                state: present
+              become: true
+
+- Playbook para copiar um arquivo para os servidores:
+
+        ---
+        - name: Copiar arquivo
+          hosts: servidores
+          tasks:
+            - name: Copiar arquivo
+              copy:
+                src: /path/to/source/file
+                dest: /path/to/destination/file
+              become: true
+
     
+- Playbook para reiniciar um serviço em servidores:
+
+        ---
+        - name: Reiniciar serviço
+          hosts: servidores
+          tasks:
+            - name: Reiniciar serviço
+              service:
+                name: nome_do_servico
+                state: restarted
+              become: true
+
+- Playbook para gerenciar usuários e grupos:
+
+
+        ---
+        - name: Gerenciar usuários e grupos
+          hosts: servidores
+          tasks:
+            - name: Criar grupo
+              group:
+                name: nome_do_grupo
+                state: present
+              become: true
+
+            - name: Criar usuário
+              user:
+                name: nome_do_usuario
+                groups: nome_do_grupo
+                password: senha_criptografada
+                state: present
+              become: true
+
+## Executando um playbook
+
+Para executar um playbook simples :
+
+    ansible-playbook HOST seu-playbook.yml
+
+<b>Obs.1: Caso tenho atribuído become : true indica que a task precisa ser executada com privilégios altos de sudo, então pode ser necessário adicionar --ask-become-pass para fornecer a senha de root</b>
+<br>
+<b>Obs.2: Caso use authorizedkeys, não é necessário passar senha</b>
+
+## States
+
+Deve ter visto que no playbook sempre tem um "state", é para referenciar a criação/presente, remoção/ausência, etc, vou deixar aqui uma lista :
+
+- present: Indica que o recurso deve estar presente ou criado. Se o recurso já existir, não será feita nenhuma alteração. Caso contrário, o recurso será criado.
+
+- absent: Indica que o recurso deve ser removido ou ausente. Se o recurso existir, será removido. Caso contrário, nenhuma ação será realizada.
+
+- started: Indica que o recurso deve estar em execução. Se o recurso não estiver em execução, ele será iniciado. Caso contrário, nenhuma ação será realizada.
+
+- stopped: Indica que o recurso deve ser interrompido ou parado. Se o recurso estiver em execução, ele será interrompido. Caso contrário, nenhuma ação será realizada.
+
+- restarted: Indica que o recurso deve ser reiniciado. Se o recurso estiver em execução, ele será reiniciado. Caso contrário, o recurso será iniciado.
+
+- reloaded: Indica que o recurso deve ser recarregado. O comportamento exato depende do módulo e do recurso específico. Em geral, isso significa recarregar as configurações sem interromper ou reiniciar o recurso.
+
+- enabled: Indica que o recurso deve estar habilitado para ser iniciado automaticamente no boot do sistema. O comportamento exato depende do módulo e do recurso específico.
+
+- disabled: Indica que o recurso deve estar desabilitado para não ser iniciado automaticamente no boot do sistema. O comportamento exato depende do módulo e do recurso específico.
+
+## Documentação
+
+Toda documentação oficial do Ansible você encontra <a href="https://docs.ansible.com/">aqui</a>!
+
+## Contribuindo
+
+Qualquer contribuição que você fizer será bem vinda, analisada e se viável, atualizada no projeto!
+
+- 1.Faça um fork do projeto
+- 2.Clone o seu fork para sua maquina(git clone url-do-projeto.git)
+- 3.Crie um branch para sua modificação/atualização(git checkout -b seu-branch)
+- 4.Adicione suas alterações ao git(git add .)
+- 5.Confirme suas alterações(git commit -m "texto descritivo do que fez")
+- 6.Suba seu branch(git push origin seu-branch)
+- 7.Faça uma solicitação de merge request para o branch : updates

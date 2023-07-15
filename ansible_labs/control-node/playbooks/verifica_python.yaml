@@ -1,8 +1,0 @@
-- name: Print Python version and path
-  hosts: localhost
-  gather_facts: no
-  tasks:
-  - name: Print Python version and path
-    debug:
-      var: ansible_playbook_python
-
