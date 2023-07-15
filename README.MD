@@ -1,5 +1,7 @@
-<h1 align=center>Aprendendo DevOps</h1>
-Conteúdo do curso de "DevOps" coloquei entre aspas tendo em vista que DevOps é uma cultura,aqui o foco é nas ferramentas, sendo mais voltado para a pratica, sendo as ferramentas :<br>
+## Aprendendo DevOps
+
+Esse repositório tem como intuito ajudar você a utilizar algumas ferramentas para facilitar sua vida no trabalho e por que não também de resolver problemas!
+
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
@@ -21,14 +23,6 @@ Git</a></li>
 Ansible</a></li>
 
 <li><a href="https://github.com/UlissesRibeiro/curso_devops/tree/master/docker"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" / width=20>  Docker</a></li>
-<li>Jenkins</li>
-<li>Kubernets</li>
-<li>Prometheus</li>
-<li>Grafana</li>
-
-<br>
 
 
-<h3 align=center>Dentro de cada repo, tem um README, de como funciona e usa cada ferramenta!</h3>
-
-<p align=center>O repositório será atualizado, sempre que um modulo for concluído.</p>
+Dentro de cada repositório tem um README, explicando como funciona basicamente cada ferramenta, assim como você também estou aprendendo a utilizar.

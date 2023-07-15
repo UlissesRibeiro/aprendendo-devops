@@ -1,51 +1,74 @@
-<h1 align=center>Vagrant</h1>
+# Indice
+- [Vagrant](#vagrant)
+- [Instalação](#instalação)
+- [Criando uma VM](#criando-uma-vm)
+- [Criando um Vagrantfile](#criando-um-vagrantfile)
+- [Comandos uteis](#comandos-uteis)
+- [Contribuindo](#contribuindo)
+## Vagrant
 
-<p>O Vagrant é uma ferramenta que tem como intuito subir maquinas virtuais, no meu ponto de vista mas para fazer maquinas de testes.</p>
+O Vagrant é uma ferramenta que tem como intuito subir maquinas virtuais,de forma mais rapida, do que ter que ir num virtualizador como VirtualBox,VMware,entre outros, por mais que a ferramenta utilize dos plugins desses virtualizadores, mas todo o deploy é feito via arquivo de configuração.
 
-<p>Faça o download clicando <a href="https://www.vagrantup.com/Downloads">aqui</a>, e faça a instalação do Vagrant, de acordo com o seu sistema operacional, uma vez instalado, verifique se a instalação deu certo, rodando o comando : <b>vagrant --version</b>, tendo o retorno da versão, confirmando que foi instalado.</p>
+## Instalação
 
-<p>Cada maquina virtual, tem que ser criada dentro de um diretório, já que cada VM tem seu Vagrantfile, por uma questão de boas práticas. Ao rodar o comando <b>vagrant init</b> dentro do diretório da VM, será gerado o arquivo <b>Vagrantfile</b>, arquivo esse responsável, por passar os parâmetros de criação da maquina virtual.</p>
+Faça o download clicando <a href="https://www.vagrantup.com/Downloads">aqui</a>, na sequência faça a instalação do Vagrant, de acordo com o seu sistema operacional, uma vez instalado, verifique se a instalação deu certo, rodando o comando : <b>vagrant --version</b>, tendo o retorno da versão, confirmando que foi instalado.
 
-<p>Segue abaixo o modelo de um Vagrantfile : </p>
+## Criando uma VM
 
-Obs.: Por padrão o Vagrant, usa o VirtualBox como virtualizador, então instale o plugin vagrant-vbguest : <b> vagrant plugin install vagrant-vbguest</b>
+Para criar uma maquina virtal(VM) usando o Vagrant, é importante saber que ela é criada no diretório corrente, ou seja, se você rodar o comando para subir a partir do Vagrantfile dentro do /root, sua VM só vai ser acessada se você estiver dentro desse diretório.
 
-Obs.2: Para definir tamanho de disco, baixe o plugin vagrant-disksize
-<b>vagrant plugin install vagrant-disksize </b>
+<b>Sujestão : planeja sua estrutura de diretórios/ambiente de trabalho, exemplo : </b>
+    
+    - vms-vagrant
+        - vm1
+        - vm2
+
+Como falei na introdução o Vagrant utiliza plugins de virtualizadores para poder provisionar as maquinas, por padrão é utilizado o VirtualBox, mas também é possivel usar outros virtualizadores, você pode obter informações mais detalhadas <a href="https://developer.hashicorp.com/vagrant/docs/providers">aqui</a> .
+
+## Criando um Vagrantfile
+
+O Vagrantfile é escrito usando a sintaxe do Ruby, segue abaixo um exemplo :
+
+
+<b>Obs.: Instale o plugin vagrant-vbguest : vagrant plugin install vagrant-vbguest</b>
+
+<b>Obs.2: Para definir tamanho de disco, baixe o plugin vagrant-disksize
+: vagrant plugin install vagrant-disksize </b>
+
+<b>Obs.3: É necessário iniciar o repositório com : vagrant init , automaticamente é gerado um Vagrantfile padrão, para você alterar!</b>
 
     Vagrant.configure("2") do |config|
-        #.define passamos o nome da maquina
         config.vm.define "nome_da_maquina"
-
-        #.hostname como diz, passa o hostname da maquina
         config.vm.hostname = "hostnamemaquina"
-
-        #aqui .box , estamos escolhendo a distribuição que queremos usar
         config.vm.box = "ubuntu/focal64"
-
-        #.network ,são configurações de rede, aqui um redirecionamento de porta
         config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
-
-        #nessa linha criamos uma rede privada, temos essa possibilidade
         config.vm.network "private_network", ip: "192.168.56.2"
 
-        #nesse bloco abaixo, podemos definir os recursos
-        config.disksize.size = '80GB' #disco
+        config.disksize.size = '80GB'
         config.vm.provider "virtualbox" do |vb|
-        vb.memory = "2048" #memoria
-        vb.cpus = 2 #cores/processadores
+        vb.memory = "2048"
+        vb.cpus = 2
         vb.customize ["modifyvm", :id, "--ioapic", "on"]
         end
 
-        #.provision, no nosso caso optei por usar um script
-        #externo, onde posso fazer instalações de pacotes, etc
-        
-        #nesse exemplo foi a instalação do apache
         config.vm.provision "shell", path: "provision.sh"
 
     end
-          
-<p>Para fazer a instalação de aplicações durante a subida da maquina, podemos optar por usar um script internamente ou externamente, no meu caso optei por fazer apontando o script externo, Segue o exemplo do <b>provision.sh</b> : <br>
+
+    - config.vm.define : define o nome da maquina virtual
+    - config.vm.hostname : define um hostname para a maquina
+    - config.vm.box : define a imagem que vai usar [ubuntu,centos,etc]
+    - config.vm.network : para definir parâmetros de rede, como
+        - forwarder de portas, criar uma rede privada,etc
+    -   config.disksize.size : você pode definir o tamanho de disco da VM
+    - config.vm.provider : para definir o virtualizador [VirtualBox,VMware,etc]
+    - vb.memory : define o tamanho de memoria ram
+    - vb.cpus : define a quantidade de cores
+    - config.vm.provision : utilizei um script externo em bash, para fazer as instalações,updates,etc
+
+<b>Obs.4: <a href="https://developer.hashicorp.com/vagrant/docs/provisioning/shell">aqui</a> você tem mais detalhes como usar o provision.</b>
+
+Segue o exemplo do <b>provision.sh</b> :
 
     #!/bin/bash
     echo "Instalando Apache e configurando setup!"
@@ -53,17 +76,43 @@ Obs.2: Para definir tamanho de disco, baixe o plugin vagrant-disksize
     cp -rfv /vagrant/html/ /var/www/
     service apache2 start
 
-Uma vez com o Vagrantfile e o provision prontos, basta ligar a maquina com <b>vagrant up</b>, abaixo segue alguns comandos uteis : <br>
+No exemplo,é feito a instalação do Apache2, e copiado arquivos locais para dentro da vm no diretório padrão do apache. Basta agora você acessar o ip da maquina criada no browser apontando a porta!
 
-<li>vagrant ssh - para entrar na máquina usando o ssh, de forma automática, sem passar ip,usuário, já que ele cria de forma automática essa configuração e aponta também a porta padrão 22 para 2200.</li>
-<li>vagrant halt - para desligar a máquina.</li>
-<li>vagrant up  - para ligar a máquina, assim também para restartar a máquina.</li>
-<li>vagrant destroy - para destruir a máquina.</li>
-<li>vagrant suspend - para suspender o estado da máquina.</li>
-<li>vagrant resume  - para voltar o estado da máquina.</li>
-<li>vagrant reload  - caso tenha feito alguma mudança no vagrantfile e queira passar para a vm.</li>
-<li>vagrant reload --provision - para forçar a usar o script de provisionamento novamente, pois ao rodar o vagrant up, o script funciona uma única vez,dessa forma ele vai forçar a subida do provision.</li>
-<li>vagrant package - para exportar sua máquina numa extensão .box.</li>
-<li>vagrant add mybox box path/da/box/.box - adiciona uma box exportada/importada a sua lista de box “reconhecidas” no vagrant .</li>
-<li>vagrant init mybox vagrant up - inicia a box no diretório atual e liga a máquina.
-mybox , é o nome da sua box.</li>
+## Comandos uteis
+
+Segue abaixo alguns comando uteis para utilização do Vagrant: 
+
+
+- vagrant ssh: Para entrar na máquina usando SSH de forma automática, sem precisar fornecer o IP ou usuário, já que o Vagrant cria essa configuração automaticamente e aponta a porta padrão 22 para 2200.
+
+- vagrant halt: Para desligar a máquina.
+
+- vagrant up: Para ligar a máquina, também pode ser usado para reiniciar a máquina.
+
+- vagrant destroy: Para destruir a máquina.
+
+- vagrant suspend: Para suspender o estado da máquina.
+
+- vagrant resume: Para retomar o estado da máquina.
+
+- vagrant reload: Caso tenha feito alguma mudança no Vagrantfile e queira aplicar as alterações na VM.
+
+- vagrant reload --provision: Para forçar a execução do script de provisionamento novamente. Ao executar vagrant up, o script de provisionamento é executado apenas uma vez, mas com essa opção, ele será executado novamente.
+
+- vagrant package: Para exportar a máquina em um arquivo com a extensão .box.
+
+- vagrant box add mybox box_path/da/box/.box: Para adicionar uma box exportada/importada à lista de boxes reconhecidas pelo Vagrant. Onde "mybox" é o nome da sua box.
+
+- vagrant init mybox e vagrant up: Para iniciar a box no diretório atual e ligar a máquina. "mybox" é o nome da sua box.
+
+## Contribuindo
+
+Qualquer contribuição que você fizer será bem vinda, analisada e se viável, atualizada no projeto!
+
+- 1.Faça um fork do projeto
+- 2.Clone o seu fork para sua maquina(git clone url-do-projeto.git)
+- 3.Crie um branch para sua modificação/atualização(git checkout -b seu-branch)
+- 4.Adicione suas alterações ao git(git add .)
+- 5.Confirme suas alterações(git commit -m "texto descritivo do que fez")
+- 6.Suba seu branch(git push origin seu-branch)
+- 7.Faça uma solicitação de merge request para o branch : updates
