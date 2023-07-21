@@ -8,7 +8,7 @@ Esse repositório tem como intuito ajudar você a utilizar algumas ferramentas p
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
           
 
-<li><a href="">
+<li><a href="https://github.com/UlissesRibeiro/aprendendo-devops/tree/master/linux">
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" / width=20>
  Linux</a></li>
 
