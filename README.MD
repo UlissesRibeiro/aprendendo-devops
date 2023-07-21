@@ -12,7 +12,7 @@ Esse repositório tem como intuito ajudar você a utilizar algumas ferramentas p
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" / width=20>
  Linux</a></li>
 
-<li><a href="">
+<li><a href="https://github.com/UlissesRibeiro/aprendendo-devops/tree/master/bash">
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" / width=20>
 Bash</a></li>
           
