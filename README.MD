@@ -32,6 +32,6 @@ Ansible</a></li>
 
 <li><a href=""> Jenkins</a></li>
 
-<li><a href=""> Monitoramento</a></li>
+<li><a href="https://github.com/UlissesRibeiro/aprendendo-devops/tree/master/monitoramento"><img src="https://img.icons8.com/?size=512&id=14835&format=png" width=20> Monitoramento</a></li>
 
 Dentro de cada repositório tem um README, explicando como funciona basicamente cada ferramenta, assim como você, também estou aprendendo a utilizar.

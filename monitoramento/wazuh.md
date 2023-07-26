@@ -15,7 +15,7 @@ Irei apresentar para vocês uma ferramenta onde é possível gerenciar logs tend
 
 - Hardware - Depende da quantidade de endpoints que você quer monitorar e também por quanto tempo quer manter os logs, segue o que foi retirado da documentação oficial :
 
-<img src="wazuh.png">
+<img src="imgs/wazuh.png">
 
 ## Instalação
 
@@ -38,7 +38,7 @@ Uma vez instalado, acesse a dashboard com o login e senha informados e siga para
 
 Para fazer o deploy de agents, você vai na seta do lado do nome "WAZUH" que será aberto um sub-menu, e nele você vai ver a opção "Agents" clique nela , procure agora a opção "Deploy a new agent", na tela de deploy terá : 
 
-<img src="agents.png">
+<img src="imgs/agents.png">
 
 <i>abaixo segue as informações da tela de deploy new agent</i>
 
@@ -67,7 +67,7 @@ Para fazer o deploy de agents, você vai na seta do lado do nome "WAZUH" que ser
  
 Você pode gerenciar os agents que vão fazer parte deste grupo, indo em "Manage agents".
 
-<img src="groups.png">
+<img src="imgs/groups.png">
 
 
 ## Buscando logs
@@ -76,7 +76,7 @@ Particularmente gosto de criar meu próprio filtro de busca quando quero analisa
 
 - Menu / OpenSearch Dashboards / Discover
 
-<img src="discover.png">
+<img src="imgs/discover.png">
 
 A partir daqui, no menu lateral esquerdo tenho varias opções para poder adicionar e filtrar minha pesquisa, sempre opto por usar :
 
