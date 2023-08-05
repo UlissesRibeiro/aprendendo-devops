@@ -4,6 +4,7 @@
 - [Arquitetura](#arquitetura)
 - [Inventario](#inventario)
 - [Testando a conexão](#testando-a-conexão)
+- [Conectando em host windows](#conectando-em-host-windows)
 - [Contribuindo](#contribuindo)
 
 ## O que é o Ansible?
@@ -84,6 +85,64 @@ Tendo como retorno:
         "changed": false,
         "ping": "pong"
         }
+
+## Conectando em host windows
+
+Não lembro de ter visto em tutoriais de texto ou video, ensinando como conectar em hosts Windows usando WinRM, então vou ensinar aqui como fazer :
+
+- Requisitos:
+  - Powershell 5.1.19041.1237
+  - .NET   
+    - Client      4.8.04084
+    - Full        4.8.04084
+    - Client      4.0.0.0
+  - Verificar se o WinRM está configurado :
+    - winrm get winrm/config/Service
+
+- Configurando e ativando o WinRM :
+  - Baixe o script disponibilizado aqui no repositório <b>ConfigureRemotingForAnsible.ps1</b>, é oficial da documentação do Ansible, execute ele com o powershell a nivel de administrador.
+  - Ao terminar verifique se deu certo, rode :
+    - winrm get winrm/config/Service
+- Crie um usuário a nível administrador,esse usuário e senha vão ser usados na configuração do ansible.
+
+- Configurando hosts
+  - crie um arquivo .ini ou utilize o /etc/ansible/hosts, fica a seu critério, para facilitar vamos no /etc/ansible/hosts :
+  
+        [windows]
+        192.168.3.5
+
+- Nos tutorias mostram para passar as credenciais no proprio arquivo de hosts, não recomendo, segue abaixo como fazer de forma criptografada usando o ansible vault:
+
+- No terminal rode o comando :
+  - ansible-vault create credentials.yml
+  - será solicitado que crie um senha para acessar esse .yml
+  - ao abrir o vim, passe as variáveis :
+
+
+        ansible_user=usuario
+        ansible_password=senha
+        ansible_port=5986
+        ansible_connection=winrm
+        ansible_winrm_transport=basic
+        ansible_winrm_server_cert_validation=ignore
+
+  - salve o arquivo, e agora no playbook ficara da seguinte forma:
+
+          ---
+        - name: win_ping module demo
+          hosts: windows
+          vars_files:
+            - credentials.yml
+          become: false
+          gather_facts: false
+          tasks:
+            - name: Example from an Ansible Playbook
+              win_ping:
+
+
+  - Agora execute :
+    - ansible-playbook -i win.ini win_ping.yml --ask-vault-pass
+    - informe a senha que você criou para o vault
 
 
 ## Módulos
