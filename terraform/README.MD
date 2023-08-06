@@ -3,6 +3,13 @@
 - [Sobre](#sobre)
 - [O que é cloud](#o-que-é-cloud)
 - [Instalação](#instalação)
+- [EC2, S3 e IAM](#ec2-s3-e-iam)
+- [Como funciona a comunicação com a cloud?](#como-funciona-a-comunicação-com-a-cloud)
+- [Instalação](#instalação)
+- [Explicando o HCL](#explicando-o-hcl)
+- [Iniciando o terraform](#iniciando-o-terraform)
+- [Comandos básicos](#comandos-básicos)
+- [Criando um instancia EC2](#criando-um-instancia-ec2)
 
 
 ## Sobre
