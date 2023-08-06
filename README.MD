@@ -24,6 +24,10 @@ Git</a></li>
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vagrant/vagrant-original.svg" / width=20>
 Vagrant </a></li>
 
+<li><a href="https://github.com/UlissesRibeiro/aprendendo-devops/tree/master/terraform">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg"/ width=20> 
+Terraform </a></li>
+
 <li><a href="https://github.com/UlissesRibeiro/curso_devops/tree/master/ansible_labs">
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original-wordmark.svg" / width=20>
 Ansible</a></li>
