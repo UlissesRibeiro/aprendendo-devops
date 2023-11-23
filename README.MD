@@ -7,7 +7,7 @@ Meu nome é Ulisses Gomes Ribeiro, aka 'Ulisses Stark', e assim como você que v
 
 <hr>
 
-<table border="4">
+<table border="4" align=center>
     <!--<tr>
         <th>Name</th>
         <th>Location</th>
