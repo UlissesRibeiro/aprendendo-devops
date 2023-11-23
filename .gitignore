@@ -10,3 +10,4 @@ devenv
 /docker/composer.*
 /docker/*.php
 /*.php
+/monitoramento
