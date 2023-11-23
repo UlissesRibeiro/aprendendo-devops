@@ -58,13 +58,13 @@ Meu nome é Ulisses Gomes Ribeiro, aka 'Ulisses Stark', e assim como você que v
         <a href='https://github.com/UlissesRibeiro/aprendendo-devops/tree/master/docker'>Docker</a>
         </p>
         </td>
-        <!--<td>
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" / width=100>
+        <td>
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" / width=100>
         <p align=center>
-        <a href='https://github.com/UlissesRibeiro/aprendendo-devops/tree/master/bash'>Bash</a>
+        <a href='https://github.com/UlissesRibeiro/aprendendo-devops/tree/master/mysql'>MySQL</a>
         </p>
         </td>
-        <td>
+        <!--<td>
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" / width=100>
         <p align=center>
         <a href='https://github.com/UlissesRibeiro/curso_devops/tree/master/git'>Git</a>
