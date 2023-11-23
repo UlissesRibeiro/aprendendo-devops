@@ -35,19 +35,19 @@ Meu nome é Ulisses Gomes Ribeiro, aka 'Ulisses Stark', e assim como você que v
         <td>
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vagrant/vagrant-original.svg" / width=100>
         <p align=center>
-        <a href='https://github.com/UlissesRibeiro/curso_devops/tree/master/vagrant'>Vagrant</a>
+        <a href='https://github.com/UlissesRibeiro/curso_devops/tree/master/vagrant_labs'>Vagrant</a>
         </p>
         </td>
         <td>
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" / width=100>
         <p align=center>
-        <a href='https://github.com/UlissesRibeiro/curso_devops/tree/master/git'>Terraform</a>
+        <a href='https://github.com/UlissesRibeiro/curso_devops/tree/master/terraform'>Terraform</a>
         </p>
         </td>
         <td>
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" / width=100>
         <p align=center>
-        <a href='https://github.com/UlissesRibeiro/curso_devops/tree/master/ansible'>Ansible</a>
+        <a href='https://github.com/UlissesRibeiro/curso_devops/tree/master/ansible_labs'>Ansible</a>
         </p>
         </td>
     </tr>
