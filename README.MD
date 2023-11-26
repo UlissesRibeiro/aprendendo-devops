@@ -67,7 +67,7 @@ Meu nome é Ulisses Gomes Ribeiro, aka 'Ulisses Stark', e assim como você que v
         <td>
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/networkx/networkx-original.svg" />  
         <p align=center>
-        <a href='https://github.com/UlissesRibeiro/curso_devops/tree/master/git'>Introdução a redes</a>
+        <a href='https://github.com/UlissesRibeiro/curso_devops/tree/master/intro-a-redes'>Introdução a redes</a>
         </p>
         </td>
         <!--<td>
