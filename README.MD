@@ -64,13 +64,13 @@ Meu nome é Ulisses Gomes Ribeiro, aka 'Ulisses Stark', e assim como você que v
         <a href='https://github.com/UlissesRibeiro/aprendendo-devops/tree/master/mysql'>MySQL</a>
         </p>
         </td>
-        <!--<td>
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" / width=100>
+        <td>
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/networkx/networkx-original.svg" />  
         <p align=center>
-        <a href='https://github.com/UlissesRibeiro/curso_devops/tree/master/git'>Git</a>
+        <a href='https://github.com/UlissesRibeiro/curso_devops/tree/master/git'>Introdução a redes</a>
         </p>
         </td>
-        <td>
+        <!--<td>
         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vagrant/vagrant-original.svg" / width=100>
         <p align=center>
         <a href='https://github.com/UlissesRibeiro/curso_devops/tree/master/vagrant'>Vagrant</a>
