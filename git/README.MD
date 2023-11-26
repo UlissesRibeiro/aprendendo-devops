@@ -20,8 +20,8 @@ Git pronuncia-se [git] (ou /ɡɪt/ em inglês britânico[2][3]) é um sistema de
 
 Para instalar o git no Ubuntu, é simples : apt install git -y
 <br>
-Rapigo e fácil, mais fácil do que tomar sorvete no sol. Ta usando Windows?
-<br>Relaxa o coração : você instalar o git para Windows <a href="https://git-scm.com/downloads">aqui</a>
+Rapido e fácil, mais fácil do que tomar sorvete no sol. Ta usando Windows?
+<br>Relaxa o coração : você pode instalar o git para Windows <a href="https://git-scm.com/downloads">aqui</a>
 
 ## Configurando o Git
 
