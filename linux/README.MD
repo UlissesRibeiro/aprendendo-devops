@@ -1,5 +1,6 @@
 # Linux - Básico
 
+- [Sobre](#sobre)
 - [Estrutura de diretórios](#estrutura-de-diretórios)
 - [Comandos básicos](#comandos-básicos)
 - [Permissões](#permissões)
@@ -7,6 +8,11 @@
 - [Compactadores de arquivos](#compactadores-de-arquivos)
 - [Gerenciamento de pacotes](#gerenciamento-de-pacotes)
 - [Contribuindo](#contribuindo)
+
+### Sobre
+
+O Linux é um sistema operacional de código aberto baseado no kernel Linux, desenvolvido por Linus Torvalds em 1991. Ele é conhecido pela sua estabilidade, segurança e flexibilidade, sendo amplamente utilizado em servidores, dispositivos embarcados e computadores pessoais. Linus Torvalds, um programador finlandês, iniciou o projeto como um hobby e o transformou em um dos sistemas operacionais mais influentes do mundo. O Linux é distribuído sob a licença GNU General Public License (GPL) e possui uma comunidade global de desenvolvedores contribuindo para seu aprimoramento contínuo.
+
 
 ### Estrutura de diretórios
 
@@ -16,7 +22,7 @@ No Linux temos uma estrutura de diretórios diferente da que estamos acostumados
 
 - /bin : aqui temos alguns binários que se assemelham aos .exe do Windows, sendo aqui binários que o usuário consegue executar normalmente.
 
-- /sbin : binários do sistema qie seria para o superusuário executar.
+- /sbin : binários do sistema que seria para o superusuário executar.
 
 - /etc : aqui ficam os arquivos de configuração do sistema e das aplicações.
 
@@ -26,7 +32,7 @@ No Linux temos uma estrutura de diretórios diferente da que estamos acostumados
 
 - /opt : para aplicações não oficiais.
 
-- /dev : referente a dispositivos, disco, unidades ub, entre outros.
+- /dev : referente a dispositivos, disco, unidades usb, entre outros.
 
 - /usr : binários de usuários comuns de sistema e aplicações.
 
@@ -51,7 +57,7 @@ Primeira coisa a se fazer é abrir o terminal, use o atalho ctrl+alt+t , abriu? 
 
 - ls : com o ls você consegui listar tudo que tem dentro do diretório corrente ou de um path, exceto arquivos e diretórios ocultos, por isso recomendo sempre usar "ls -lha" assim você consegue ver ocultos e informações sobre as permissões.
 
-- mdkir : para criar diretórios.
+- mkdir : para criar diretórios.
 
 - rm : para remover arquivos(removeu sumiu...), caso queria remover um diretório usar rm -r /diretório
 
@@ -87,7 +93,7 @@ e elas são representadas de forma octal como :
 - 2
 - 1
 
-Exemplo pratico, quando você cria um scrip, por padrão ele não vai poder ser executado pois ele não tem permissão de execução estando como :
+Exemplo pratico, quando você cria um script, por padrão ele não vai poder ser executado pois ele não tem permissão de execução estando como :
 
 - rw-rw-rw-
 
