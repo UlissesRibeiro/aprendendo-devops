@@ -130,12 +130,12 @@ e quando for dar o apply usar:
 
 Para criar nossa instancia EC2 a partir do terraform, segue abaixo o nosso código base:
 
-    resource "aws_instance" "web" {
+    resource "aws_instance" "web_lab" {
       ami           = "ami-053b0d53c279acc90"
       instance_type = "t2.micro"
       
       tags = {
-        Name = "HelloWorld"
+        Name = "webserver_lab"
       }
     }
 
@@ -154,3 +154,17 @@ e dentro do bloco da instancia, coloque:
 
     key_name = aws_key_pair.deployer.key_name
 
+## Organizando seu ambiente
+
+- A partir de agora vamos trabalhar de forma mais organizada, para criarmos uma boa pratica na criaçao das nossas instancias EC2 usando o Terraform.
+
+- Nosso ambiente de trabalho será agora da seguinte forma :
+
+📁 app_webserver
+  - <img src=images/tf.ico width=15px> main.tf
+
+📁 modules
+  - <img src=images/tf.ico width=15px> security_groups.tf
+
+📁 keys_aws
+  - <img src=images/sshkey.png width=15px> security_groups.tf

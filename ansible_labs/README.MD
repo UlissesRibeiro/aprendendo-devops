@@ -5,6 +5,7 @@
 - [Inventario](#inventario)
 - [Testando a conexão](#testando-a-conexão)
 - [Conectando em host windows](#conectando-em-host-windows)
+- [Documentação util](#documentação)
 - [Contribuindo](#contribuindo)
 
 ## O que é o Ansible?
@@ -284,6 +285,14 @@ Deve ter visto que no playbook sempre tem um "state", é para referenciar a cria
 ## Documentação
 
 Toda documentação oficial do Ansible você encontra <a href="https://docs.ansible.com/">aqui</a>!
+
+<b>Favorite</b>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/index.html">Modulos Ansible - Linux</a></li>
+<li><a href="https://docs.ansible.com/ansible/2.9/modules/list_of_windows_modules.html">Modulos Ansible - Windows</a></li>
+<li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_vars_facts.html">Descobrindo variaveis - facts and magic variables</a></li>
+<li><a href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/service_facts_module.html#examples">Service facts - Obter status de serviços</a></li>
+</ul>
 
 ## Contribuindo
 

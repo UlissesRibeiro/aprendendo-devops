@@ -6,7 +6,7 @@ resource "aws_security_group" "ssh_access" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["XXX.XXX.XX.XX/32"]  # Substitua "seu_ip_publico" pelo seu IP público
+    cidr_blocks = ["187.19.176.164/32"]  # Substitua "seu_ip_publico" pelo seu IP público
   }
 
   # Pode adicionar outras regras de entrada e saída conforme necessário

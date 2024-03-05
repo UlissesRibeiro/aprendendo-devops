@@ -12,8 +12,8 @@ provider "aws" {
   }
 
 resource "aws_key_pair" "deployer" {
-  key_name   = "tuamae.pub"
-  public_key = file("/root/.ssh/tuamae.pub")
+  key_name   = "aws_keys.pub"
+  public_key = file("/root/.ssh/aws_keys.pub")
 }
 
 terraform {
