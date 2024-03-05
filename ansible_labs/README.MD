@@ -119,30 +119,48 @@ Não lembro de ter visto em tutoriais de texto ou video, ensinando como conectar
   - ao abrir o vim, passe as variáveis :
 
 
-        ansible_user=usuario
-        ansible_password=senha
-        ansible_port=5986
-        ansible_connection=winrm
-        ansible_winrm_transport=basic
-        ansible_winrm_server_cert_validation=ignore
+        user=usuario
+        password=senha
 
   - salve o arquivo, e agora no playbook ficara da seguinte forma:
 
-          ---
-        - name: win_ping module demo
-          hosts: windows
+
+        ---
+        - name: Manager windows - winRM
+          hosts: WINDOWS
+
           vars_files:
-            - credentials.yml
+            - credentials.yaml  
+        
+          vars:
+            ansible_user: "{{ user }}"
+            ansible_password: "{{ password }}"
+            ansible_port: 5986
+            ansible_connection: winrm
+            ansible_winrm_transport: basic
+            ansible_winrm_server_cert_validation: ignore
+
           become: false
           gather_facts: false
+        
           tasks:
-            - name: Example from an Ansible Playbook
+            - name: Test connection
               win_ping:
+              register: ping
+
+            - debug:
+                msg: "Status ping {{ ping }}"
 
 
   - Agora execute :
     - ansible-playbook -i win.ini win_ping.yml --ask-vault-pass
     - informe a senha que você criou para o vault
+
+### Dicas ansible-vault
+- Comandos :
+  - ansible-vault create : para criar um arquivo criptografado
+  - ansible-vault edit : para poder editar o arquivo
+  - ansible-vault view : para apenas visualizar as informações
 
 
 ## Módulos
