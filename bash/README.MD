@@ -1,6 +1,6 @@
 # Bash
 
-O Bash (Bourne Again SHell) é um interpretador de linha de comando, ou shell, amplamente utilizado em sistemas operacionais baseados em Unix, incluindo o Linux. Ele é uma evolução do shell "sh" original, criado por Stephen Bourne nos primeiros dias do Unix. O Bash é o shell padrão em muitas distribuições Linux e é amplamente preferido por sua riqueza de recursos, flexibilidade e suporte a automação de tarefas.
+O Bash (Bourne Again Shell) é um interpretador de linha de comando, ou shell, amplamente utilizado em sistemas operacionais baseados em Unix, incluindo o Linux. Ele é uma evolução do shell "sh" original, criado por Stephen Bourne nos primeiros dias do Unix. O Bash é o shell padrão em muitas distribuições Linux e é amplamente preferido por sua riqueza de recursos, flexibilidade e suporte a automação de tarefas.
 
 Aqui estão alguns dos principais recursos e funcionalidades do Bash:
 
@@ -51,10 +51,8 @@ Exemplo de condicional "if":
 Exemplo de navegação no histórico de comandos:
 
 
-    history
-
-!!  # Executa o último comando novamente
-!5  # Executa o quinto comando no histórico
+    history !!  # Executa o último comando novamente
+    history !5  # Executa o quinto comando no histórico
 
 - Completion (completar): O Bash oferece suporte a recursos de completar, que permitem ao usuário pressionar a tecla "Tab" para autocompletar nomes de arquivos, diretórios, comandos e opções, economizando tempo e minimizando erros.
 
