@@ -49,11 +49,12 @@ No Linux temos uma estrutura de diretórios diferente da que estamos acostumados
 
 É importante saber alguns comandos ai básicos e essenciais quando você quer entrar na area de T.I, tendo em vista que boa parte dos servidores rodam uma distribuição Linux.
 
-Primeira coisa a se fazer é abrir o terminal, use o atalho ctrl+alt+t , abriu? certo.
+Primeira coisa a se fazer é abrir o terminal, use o atalho ctrl+alt+t(a não ser que você tenha alterado o atalho de abrir o terminal) , abriu? certo.
 
 - su, sudo : é utilizado para você poder rodar comandos a nível de superusuário, sendo "sudo" de "super user" e "do" ao pé da letra "super usuário faça" , dessa forma você pode por exemplo dar um apt update com seu usuário normal "sudo apt update" ou um "apt install". Caso queira ficar no terminal já como usuário root pode usar sudo -i, assim você pode rodar qualquer comando sem a necessidade de solicitar a senha...mas cuidado, você esta como super user agora, qualquer comando errado ferrou...
 
 - cd : esse você já deve conhecer do Windows, é utilizado para navegar entre os diretórios passando o path, quando você usou la o "sudo -i" por padrão agora você vai estar no /root, então para mudar use "cd /" indo para o / ou "cd /home/seu_usuário" levando você até seu diretório pessoal.
+    - Você pode usar também a variavel de amibiente $USER cd /home/$USER/ sendo utilizado o usuario corrente.
 
 - ls : com o ls você consegui listar tudo que tem dentro do diretório corrente ou de um path, exceto arquivos e diretórios ocultos, por isso recomendo sempre usar "ls -lha" assim você consegue ver ocultos e informações sobre as permissões.
 
@@ -70,12 +71,12 @@ Primeira coisa a se fazer é abrir o terminal, use o atalho ctrl+alt+t , abriu? 
 
 ### Permissões
 
-É importante que arquivos e diretórios tem permissões e por isso precisamos ter um conhecimento básico sobre permissões.
+É importante que arquivos e diretórios tenham permissões e por isso precisamos ter um conhecimento básico sobre permissões.
 
 Quando você lista um arquivo por exemplo :
 - ls -lha /etc/hosts
 
-você tem retorno algo assim :
+você tem retorno de algo assim :
 
 -rwxr-xr-x hosts
 
@@ -84,7 +85,7 @@ Onde as permissões se dão por
 - - : ausência de permissão 
 - r : permissão de leitura
 - w : permissão de escrita
-- x : permissãode execução
+- x : permissão de execução
 
 e elas são representadas de forma octal como :
 
@@ -101,7 +102,7 @@ para que seja possível executar temos que dar permissão com o comando "chmod" 
 
 - chmod 777 script.sh
 
-o ideal é dar apenas a permissão necessária, evite usar 777. Pode usar dessa forma : 
+o ideal é dar apenas a permissão necessária, evite usar 777. Também podemos usar dessa forma : 
 
 - chmod u=7,g=7,o=5 script.sh
 
@@ -109,11 +110,11 @@ Assim apenas o usuário e o grupo dono podem executar.
 
 ### Editores de texto
 
-Vamos considerar que estamos lhe dando com servidores Linux onde não temos interface gráfico e muito menos um mouse, então é importante saber usar os editores via terminal, eu posso sugerir algumas opções :
+Vamos considerar que estamos lhe dando com servidores Linux onde não temos interface gráfica e muito menos um mouse, então é importante saber usar os editores via terminal, eu posso sugerir algumas opções :
 
-- Vi ou Vim : Diria que presente em todas distribuições, um pouco de paciência para aprender a utilizar, mas depois que aprende acho difícil querer voltar pra outro editor.
+- Vi ou Vim : Diria que presente em todas distribuições, um pouco de paciência para aprender a utilizar, mas depois que aprender acho difícil querer voltar pra outro editor.
 
-- Nano : É uma opção mais "amigável" digamos assim, pois você consegue ver uma "interface" com os atalhos qie precisa para salvar, pesquisar,etc.
+- Nano : É uma opção mais "amigável" digamos assim, pois você consegue ver uma "interface" com os atalhos que precisa para salvar, pesquisar,etc.
 
 Aprenda a usar o Vim!
 
