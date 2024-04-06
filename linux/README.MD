@@ -9,40 +9,40 @@
 - [Gerenciamento de pacotes](#gerenciamento-de-pacotes)
 - [Contribuindo](#contribuindo)
 
-### Sobre
+### Sobre 🐧
 
 O Linux é um sistema operacional de código aberto baseado no kernel Linux, desenvolvido por Linus Torvalds em 1991. Ele é conhecido pela sua estabilidade, segurança e flexibilidade, sendo amplamente utilizado em servidores, dispositivos embarcados e computadores pessoais. Linus Torvalds, um programador finlandês, iniciou o projeto como um hobby e o transformou em um dos sistemas operacionais mais influentes do mundo. O Linux é distribuído sob a licença GNU General Public License (GPL) e possui uma comunidade global de desenvolvedores contribuindo para seu aprimoramento contínuo.
 
 
-### Estrutura de diretórios
+### Estrutura de diretórios 📁
 
 No Linux temos uma estrutura de diretórios diferente da que estamos acostumados no Windows, sendo assim segue os diretórios e suas devidas "funções" :
 
-- / : o / é o nosso diretório raiz, equivalente o "disco local c:\ .
+- 📁 / : o / é o nosso diretório raiz, equivalente o "disco local c:\ .
 
-- /bin : aqui temos alguns binários que se assemelham aos .exe do Windows, sendo aqui binários que o usuário consegue executar normalmente.
+- 📁 /bin : aqui temos alguns binários que se assemelham aos .exe do Windows, sendo aqui binários que o usuário consegue executar normalmente.
 
-- /sbin : binários do sistema que seria para o superusuário executar.
+- 📁 /sbin : binários do sistema que seria para o superusuário executar.
 
-- /etc : aqui ficam os arquivos de configuração do sistema e das aplicações.
+- 📁 /etc : aqui ficam os arquivos de configuração do sistema e das aplicações.
 
-- /tmp : como o nome sugere, esse path é para arquivos temporários.
+- 📁 /tmp : como o nome sugere, esse path é para arquivos temporários.
 
-- /boot : arquivos do sistema ds boot.
+- 📁 /boot : arquivos do sistema ds boot.
 
-- /opt : para aplicações não oficiais.
+- 📁 /opt : para aplicações não oficiais.
 
-- /dev : referente a dispositivos, disco, unidades usb, entre outros.
+- 📁 /dev : referente a dispositivos, disco, unidades usb, entre outros.
 
-- /usr : binários de usuários comuns de sistema e aplicações.
+- 📁 /usr : binários de usuários comuns de sistema e aplicações.
 
-- /home : aqui normalmente são criadas as pastas referente aos usuários quando criados/adicionados com uma pasta no /home.
+- 📁 /home : aqui normalmente são criadas as pastas referente aos usuários quando criados/adicionados com uma pasta no /home.
 
-- /var : aqui vão os arquivos de tamanhos variáveis, normalmente arquivos de Log.
+- 📁 /var : aqui vão os arquivos de tamanhos variáveis, normalmente arquivos de Log.
 
-- /mnt e /media : são onde normalmente montamos unidades de disco.
+- 📁 /mnt e 📁 /media : são onde normalmente montamos unidades de disco.
 
-- /lib : aqui ficam as bibliotecas e módulos do kernel.
+- 📁 /lib : aqui ficam as bibliotecas e módulos do kernel.
 
 
 ### Comandos básicos
@@ -50,23 +50,32 @@ No Linux temos uma estrutura de diretórios diferente da que estamos acostumados
 É importante saber alguns comandos ai básicos e essenciais quando você quer entrar na area de T.I, tendo em vista que boa parte dos servidores rodam uma distribuição Linux.
 
 Primeira coisa a se fazer é abrir o terminal, use o atalho ctrl+alt+t(a não ser que você tenha alterado o atalho de abrir o terminal) , abriu? certo.
+<strong>Dica : para todos os comandos, você pode usar o <i>--help</i>, obtendo assim informações e variações sobre o comando!</strong>
 
-- su, sudo : é utilizado para você poder rodar comandos a nível de superusuário, sendo "sudo" de "super user" e "do" ao pé da letra "super usuário faça" , dessa forma você pode por exemplo dar um apt update com seu usuário normal "sudo apt update" ou um "apt install". Caso queira ficar no terminal já como usuário root pode usar sudo -i, assim você pode rodar qualquer comando sem a necessidade de solicitar a senha...mas cuidado, você esta como super user agora, qualquer comando errado ferrou...
+- ls : Lista os arquivos de um diretório
+    - Com o ls você consegue listar tudo que tem dentro do diretório corrente ou de um path especifico.
+    - ls -lha : Você consegue ver arquivos e diretórios ocultos, obtendo também informações sobre as permissões.
 
-- cd : esse você já deve conhecer do Windows, é utilizado para navegar entre os diretórios passando o path, quando você usou la o "sudo -i" por padrão agora você vai estar no /root, então para mudar use "cd /" indo para o / ou "cd /home/seu_usuário" levando você até seu diretório pessoal.
-    - Você pode usar também a variavel de amibiente $USER cd /home/$USER/ sendo utilizado o usuario corrente.
+- cd : Muda o diretório atual
+    -   Você pode navegar entra os diretórios usando cd seguindo do path,exemplo :
 
-- ls : com o ls você consegui listar tudo que tem dentro do diretório corrente ou de um path, exceto arquivos e diretórios ocultos, por isso recomendo sempre usar "ls -lha" assim você consegue ver ocultos e informações sobre as permissões.
+            cd /home/$USER/Downloads
 
-- mkdir : para criar diretórios.
+- pwd: Mostra o diretório atual
+    - Ao dar o comando pwd, você consegue ver o path do seu diretório corrente.
 
-- rm : para remover arquivos(removeu sumiu...), caso queria remover um diretório usar rm -r /diretório
+- mkdir : Cria diretórios
+    - Como o próprio nome diz, você pode criar diretórios
+        
+            mkdir novo_diretorio
+    - Caso queira criar o diretório "pai" seguido do sub-diretório:
+            
+            mkdir -p /diretorio/sub-diretorio/
 
-- mv : usado para mover arquivos e diretórios ou para renomear arquivos e diretórios.
-
-- pwd : caso queira saber em qual path você esta.
-
-- touch : cria um arquivo de texto vazio "touch meu_arquivo"
+- rm e rmdir : 
+    - rm , você usa para remover arquivos de um diretório
+    - Se o diretório não estiver vazio, você pode passar -r como parametro <b> rm -r /diretorio/</b>
+    - Se for um diretório vazio, você pode usar o <b>rmdir</b>
 
 
 ### Permissões
@@ -78,14 +87,14 @@ Quando você lista um arquivo por exemplo :
 
 você tem retorno de algo assim :
 
--rwxr-xr-x hosts
+        -rwxr-xr-x hosts
 
 Onde as permissões se dão por
 
-- - : ausência de permissão 
-- r : permissão de leitura
-- w : permissão de escrita
-- x : permissão de execução
+    - - : ausência de permissão 
+    - r : permissão de leitura
+    - w : permissão de escrita
+    - x : permissão de execução
 
 e elas são representadas de forma octal como :
 
@@ -96,15 +105,15 @@ e elas são representadas de forma octal como :
 
 Exemplo pratico, quando você cria um script, por padrão ele não vai poder ser executado pois ele não tem permissão de execução estando como :
 
-- rw-rw-rw-
+    - rw-rw-rw-
 
 para que seja possível executar temos que dar permissão com o comando "chmod" :
 
-- chmod 777 script.sh
+    chmod 777 script.sh
 
 o ideal é dar apenas a permissão necessária, evite usar 777. Também podemos usar dessa forma : 
 
-- chmod u=7,g=7,o=5 script.sh
+    chmod u=7,g=7,o=5 script.sh
 
 Assim apenas o usuário e o grupo dono podem executar.
 
