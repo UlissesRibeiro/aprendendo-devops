@@ -10,9 +10,9 @@
 
 ## O que é o Ansible?
 
-<p>O Ansible, é uma ferramenta que nos possibilita ter o que chamamos de "infraestrutura como código", sendo utilizado para criação automatizada de Maquinas Virtuais, provisionamento de ambientes, gerenciamento de configurações, entre outras coisas!</p>
+<p>O Ansible, é uma ferramenta que nos possibilita ter o que chamamos de "infraestrutura como código", apesar de nos possibilidade a criação automatizada de Maquinas Virtuais, provisionamento de ambientes, o seu uso mesmo seria mais para o gerenciamento de configurações, entre outras coisas!</p>
 
-<p>Minha experiência com o Ansible, foi para fazer a subida de maquinas virtuais no ProxMox(um hipervisor, semelhante ao ESXI,VMware VCenter), com base em templates, mas também para fazer instalação de aplicações, como subida de um ambiente, verificar se um grupo de maquinas esta online, etc.</P>
+<p>Minha experiência com o Ansible, atualmente é apenas para gerenciar configurações de ambientes on-premise!</P>
 
 ## Como instalar
 <p>Para instalar o Ansible, basta seguir o passo a passo baseado na documentação oficial, meu sistema de uso é o Ubuntu, segue então os comandos :
@@ -26,6 +26,7 @@
 ## Arquitetura
 
 A arquitetura digamos assim do Ansible é composta por :
+
  - Control Node : a maquina que terá o Ansible instalado para gerenciar os hosts.
 
  - Managed Node : são os hosts gerenciados pelo Control Node.
@@ -61,7 +62,7 @@ Para verificar se deu certo, você pode rodar o comando :
 
     ansible myvirtualachines -m ping
     
-<b>Obs.: Só vai funcionar dessa forma do comando se tiver authorizedkeys, , do contrário informe -k para solicitar a senha, por padrão é usado usuário root, caso queira passar outro usuário use : -u nome_do_usuario </b>
+<b>Obs.: Só vai funcionar dessa forma do comando se tiver authorizedkeys, do contrário informe -k para solicitar a senha, por padrão é usado usuário root, caso queira passar outro usuário use : -u nome_do_usuario </b>
 
 Tendo como retorno: 
 
