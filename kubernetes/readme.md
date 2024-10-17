@@ -269,6 +269,12 @@ Depois de criar o arquivo metallb-config.yaml, aplique-o ao cluster:
 
 Rodando kubectl get svc, você vera que na coluna EXTERNAL-IP agora teremos o IP para acessar diretamente a aplicação sem ter que passar a porta.
 
+### Instalação do ingress
+
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+
+    kubectl create ingress app-k8s-ingress --rule="app.local/*=app-k8s-service:3000" --dry-run=client -o yaml > ingress.yaml
+
 
 # Referência
 
