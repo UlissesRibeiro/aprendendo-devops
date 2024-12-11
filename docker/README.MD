@@ -11,28 +11,21 @@
 
 ## Docker
 
-O que é o Docker?
+O Docker é uma plataforma open source que permite criar, empacotar e gerenciar aplicações em containers. Containers são ambientes isolados e padronizados que contêm tudo o que uma aplicação precisa para rodar, como código, bibliotecas e dependências, garantindo que ela funcione de forma consistente em qualquer sistema operacional que suporte Docker.
 
-Para entender de uma forma prático é que o docker, na verdade o que são containers,vamos comparar com uma maquina virtual :
+### Principais conceitos:
+- Imagens: São templates imutáveis que definem o que um container deve executar. Por exemplo, uma imagem pode conter uma aplicação web com todas as suas dependências.
+- Containers: São instâncias em execução das imagens, funcionando como "máquinas virtuais leves", mas que compartilham o kernel do sistema operacional.
+- Docker Engine: O serviço que gerencia os containers e imagens no host.
+- Docker Hub: Um repositório público onde você pode encontrar e compartilhar imagens Docker.
 
-- Na maquina virtual, temos o nosso sistema host/hospedeiro, exemplo : Windows. E nele instalamos um virtualizador como VirtualBox, e criamos uma maquina virtual informando o sistema operacional dessa maquina, processador, memoria,espaço em disco,etc. Então Digamos que a maquina virtual é um Linux Server, o minimo de 2 GB de RAM 1 Core, apenas para instalar um webserver como o Apache, somente para estudos, sendo que um Apache simples de estudo vai consumir menos de 200MB da memoria do maquina virtual, e talvez 5% da CPU.
+### Benefícios:
+- Portabilidade: Containers podem rodar em qualquer ambiente que suporte Docker.
+- Leveza: Compartilham o kernel do sistema operacional, consumindo menos recursos que VMs.
+- Velocidade: Containers iniciam rapidamente.
+- Consistência: Evitam problemas de "funciona na minha máquina".
 
-- Agora em container, você consegue subir uma instância com o Apache, que vai consumir apenas seus 200MB de ram, economizando 1.8GB.
-
-Sacou a diferença? enquanto na maquina virtua você ta rodando um sistema dentro do sistema, onde o Apache vai usar bibliotecas e libs que são compartilhadas com outras aplicações, no Container o Apache vai ter suas dependências e libs isoladas, então se você subir outro container de um Nginx, ele não vai usar as dependências e libs do Apache, por que esta isolado num container.
-
-
-
-## Vantagens
-
-- Baixo consumo de hardware : utilização do hardware mais otimizada comparado com a VM.
-
-- Portabilidade : O mesmo container vai ser executado em qualquer outra maquina da mesma forma.
-
-- Reusabilidade : É possível utilizar o mesmo container para diversos ambientes.
-
-- Microsserviços : Aderente a arquitetura de microsserviços.
-
+Docker é amplamente utilizado em ambientes de desenvolvimento, testes e produção, especialmente em arquiteturas baseadas em microsserviços.
 
 
 ## Arquitetura

@@ -10,9 +10,34 @@
 
 ## O que é o Ansible?
 
-<p>O Ansible, é uma ferramenta que nos possibilita ter o que chamamos de "infraestrutura como código", apesar de nos possibilidade a criação automatizada de Maquinas Virtuais, provisionamento de ambientes, o seu uso mesmo seria mais para o gerenciamento de configurações, entre outras coisas!</p>
+O Ansible é uma ferramenta de automação de TI que ajuda a gerenciar e configurar servidores, aplicativos e infraestrutura de forma simples e eficiente. Pense nele como um "controlador remoto inteligente" que usa arquivos de texto (Playbooks) para descrever o que você quer que ele faça, como instalar pacotes, configurar serviços ou implementar atualizações.
 
-<p>Minha experiência com o Ansible, atualmente é apenas para gerenciar configurações de ambientes on-premise!</P>
+#### Características práticas:
+- Sem agentes: Você não precisa instalar nada nas máquinas que quer gerenciar. O Ansible se conecta via SSH.
+- Simplicidade: Os Playbooks são escritos em YAML, um formato legível e fácil de aprender.
+- Escalável: Pode gerenciar de um único servidor até milhares de máquinas.
+- Repetibilidade: Garante que o mesmo script funcione sempre da mesma forma, eliminando inconsistências.
+
+#### Exemplo prático: Imagine que você precisa instalar o Apache em 10 servidores. Com o Ansible, você escreve um Playbook assim:
+
+
+    - name: Instalar e iniciar Apache
+      hosts: servidores_web
+      tasks:
+        - name: Instalar pacote Apache
+          apt:
+            name: apache2
+            state: present
+
+        - name: Garantir que o Apache está rodando
+          service:
+            name: apache2
+            state: started
+
+            
+Com apenas um comando, o Ansible faz isso em todos os servidores, sem que você tenha que acessá-los manualmente.
+
+Resumindo: o Ansible é como um assistente que automatiza tarefas repetitivas e complexas, poupando tempo e reduzindo erros.
 
 ## Como instalar
 <p>Para instalar o Ansible, basta seguir o passo a passo baseado na documentação oficial, meu sistema de uso é o Ubuntu, segue então os comandos :
