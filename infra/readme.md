@@ -1,6 +1,6 @@
 # O que instalar no S.O de alguém de infra
 
-<p>Vou listar aqui ferramentas que considero importante de ter instalado em meu ambiente de trabalho, atualmente utilizo Linux Ubuntu 22 que me atende muito bem para as minhas demandas do dia-a-dia.
+<p>Vou listar aqui ferramentas que considero importante de ter instalado em meu ambiente de trabalho, atualmente utilizo Linux (Kali e Ubuntu 22).
 </p>
 
 - [Terminator](#terminator)
