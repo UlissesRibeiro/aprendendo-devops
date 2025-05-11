@@ -35,11 +35,11 @@ Alguns exemplos são :
 
 - <b>Pod</b> ; É o menor objeto do k8s. Como dito anteriormente, o k8s não trabalha com os containers diretamente, mas organiza-os dentro de <i>pods</i>, que são abstrações que dividem os mesmos recursos, como endereços, volumes, ciclos de CPU e memória. Um pod pode possuir varios conatiners;
 
-- <b>Deployment</b> : É um dos principais <i>controllers</i> utilizados. O deploymente, em conjunto com o ReplicaSet, garante que determinado número de réplicas de um pod esteja em execução nos nós workers do cluster. Além disso, o Deployment também é responsável por gerenciar o ciclo de vida das aplicações, onde caracteristicas associadas a aplicação, tais como imagem, porta, volumes e variaves de ambiente, podem ser especificados em arquivos do tipo yaml ou json para posteriormente serem passados como parametro para o <b>kubectl</b> executar o deploymente. Esta ação pode ser executada tanto para criação quanto para atualização e remoção do deployment;
+- <b>Deployment</b> : É um dos principais <i>controllers</i> utilizados. O deploymente, em conjunto com o ReplicaSet, garante que determinado número de réplicas de um pod esteja em execução nos nós workers do cluster. Além disso, o Deployment também é responsável por gerenciar o ciclo de vida das aplicações, onde caracteristicas associadas a aplicação, tais como imagem, porta, volumes e variaves de ambiente, podem ser especificados em arquivos do tipo yaml ou json para posteriormente serem passados como parametro para o <b>kubectl</b> executar o deployment. Esta ação pode ser executada tanto para criação quanto para atualização e remoção do deployment;
 
 - <b>ReplicaSet</b> : É um objeto responsável por garantir a quantidade de pods em execução no nó;
 
-- <b>Services</b> : É um forma de vocês expor a comunicação através de um ClusterIP, NodePort ou LoadBalancer para distribuir as requisições entre os diversos Pods daquele Deployment. Funciona como um balanceador de carga.
+- <b>Services</b> : É um forma de você expor a comunicação através de um ClusterIP, NodePort ou LoadBalancer para distribuir as requisições entre os diversos Pods daquele Deployment. Funciona como um balanceador de carga.
 
 ## Instalando o cluster k8s
 
@@ -101,6 +101,7 @@ Se já tiver instalado o docker não tem problemas, caso contrario, pode optar p
 
 Agora, vamos configurar o containerd para que ele funcione adequadamente com o nosso cluster:
 
+    mkdir -p /etc/containerd
     sudo containerd config default | sudo tee /etc/containerd/config.toml
 
     sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.toml
@@ -157,7 +158,7 @@ Basta seguir os passos informados na mensagem, para fazer com que os workers se 
     k8s-02   NotReady    <none>          3m   v1.26.3
     k8s-03   NotReady    <none>          3m   v1.26.3
 
-Agora você já consegue ver que os dois novos nodes foram adicionados ao cluster, porém ainda estão com o status Not Ready, pois ainda não instalamos o nosso plugin de rede para que seja possível a comunicação entre os pods. Vamos resolver isso agora. :)
+Agora você já consegue ver que os dois novos nodes foram adicionados ao cluster, porém ainda estão com o status Not Ready, pois ainda não instalamos o nosso plugin de rede para que seja possível a comunicação entre os pods. Vamos resolver isso agora.
 
 ### Instalando o Weave Net
 
@@ -211,12 +212,14 @@ Pronto, nosso cluster está funcionando e os Pods estão em execução em difere
 - ClusterIP :
     
         kubectl expose pod nginx ou kubectl expose pod nginx --type=ClusterIP
-        Fará que a comunicação aconteça apenas dentro do cluster, interanmente.
+
+    Fará que a comunicação aconteça apenas dentro do cluster, interanmente.
 
 - NodePort :
 
         kubectl expose pod nginx --type=NodePort --port=80
-        Ao rodarmos kubectl get svc veremos que teremos a porta 80 do pod, que para acessar precisamos ir na porta 32XXX/TCP
+    
+    Ao rodarmos kubectl get svc veremos que teremos a porta 80 do pod, que para acessar precisamos ir na porta 32XXX/TCP
 
         NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
         nginx        NodePort    10.96.0.1       <none>        80:32xxx/TCP   1m
@@ -276,6 +279,64 @@ Rodando kubectl get svc, você vera que na coluna EXTERNAL-IP agora teremos o IP
     kubectl create ingress app-k8s-ingress --rule="app.local/*=app-k8s-service:3000" --dry-run=client -o yaml > ingress.yaml
 
 
-# Referência
+## K8S com multi-masters
+
+Procurei bastenta pelo Google uma forma de fazer um cluster k8s com multi-master, multi control-planes, até que finalmaente encontrei um projeto no github que fazia usando HAproxy, pois bem, vou deixar as informações aqui mais resumidas,e no fim do doc deixarei o link da referência.
+
+### Instalando e configurando HAproxy
+
+> apt install haproxy -y
+
+> vim /etc/haproxy/haproxy.cfg
+
+    #para acessar via web e ver as estatisticas do haproxy
+    listen stats
+    bind *:8404
+    mode http
+    stats enable
+    stats uri /stats
+    stats refresh 10s
+    stats show-node
+    stats show-legends
+    #stats auth admin:senha123
+
+    #o ip que vai receber as requisições
+    frontend k8s-api
+        bind *:6443
+        mode tcp
+        option tcplog
+        default_backend k8s-masters
+
+    #os ips onde vai bater
+    backend k8s-masters
+        mode tcp
+        balance roundrobin
+        option tcp-check
+        default-server inter 3s fall 3 rise 2
+        server master1 192.168.231.137:6443 check
+        server master2 192.168.231.138:6443 check
+
+Salve e restart o service do haproxy.
+
+Agora rode o comando abaixa uma unica vez e em apenas um dos nodes control-planr:
+
+> sudo kubeadm init --control-plane-endpoint "haproxy-ip:6443" --upload-certs
+
+substitua haproxy-ip pelo ip do seu haproxy, lembre de remover as aspas.
+
+Ao concluir a criação, rode os comandos que forem exibidos, se atente agora que foi gerado o kubeadm join para worker e para control-plane :
+
+    kubeadm join haproxy-01:6443 --token 42i35p.wgxvowimiy4ub9mp
+    --discovery-token-ca-cert-hash sha256:20a5adc8095fd25cf2d9a72cc89362818c8dbb7ac37b4461900526ae65ba99e5
+    --control-plane --certificate-key 018a256e7ff705be89224231e184f6cee8bdf019fec1d72780da8f3d78db2685
+
+Agora aguarde e verifique no control-plane-01 :
+
+> kubectl get nodes
+
+Daqui pra frente, só seguir o que já sabemos.
+
+# Referências
 
 - <a href="https://github.com/linuxtips/MesDoKubernetes/tree/main/semana1">MêsDoKubernets - LinuxTips</a>
+- <a href="https://github.com/KubeDev/k8s-cluster-ha">k8s-cluster-ha</a>
